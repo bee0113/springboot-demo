@@ -4,6 +4,11 @@ spring:
       prefix: /views/
       suffix: .jsp
 
+#  security:
+#    user:
+#      name: yoon
+#      password: yoon
+
   devtools:
     livereload:
       enabled: true

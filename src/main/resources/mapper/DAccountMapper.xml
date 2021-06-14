@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springbootdemo.account.repository.DAccountMapper">
+    <!-- //계정 로그인 -->
+
+    <select id="findByUsername" resultType="Account">
+
+        SELECT accountId, accountUserId, accountUserNm, accountEmail, accountPassword, devCheck, active, role, createDt,
+        updateDt
+        FROM bbs_new_account
+
+    </select>
+
+</mapper>

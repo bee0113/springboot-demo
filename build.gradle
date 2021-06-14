@@ -33,7 +33,7 @@ dependencies {
 
     //spring security
     implementation 'org.springframework.boot:spring-boot-starter-security'
-//    implementation 'org.springframework.security:spring-security-taglibs' // jstl sec tag 사용하기 위함
+    implementation 'org.springframework.security:spring-security-taglibs' // jstl sec tag 사용하기 위함
 
 
     //embed Tomcat Starter
