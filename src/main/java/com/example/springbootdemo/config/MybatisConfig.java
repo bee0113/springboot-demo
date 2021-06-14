@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement // 트랜잭션 관리: <tx:anntation-driven>
-@MapperScan(basePackages = "com.example.springboot-demo.*repository.")
+@MapperScan(basePackages = "com.example.springbootdemo.repository.")
 // java config를 통한 mapper 검색을 하기 위함. dao 인터페이스 패키지 위치
 public class MybatisConfig {
 
@@ -40,7 +40,7 @@ public class MybatisConfig {
         sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(
                 "classpath:mapper/**/"
         ));
-        sqlSessionFactoryBean.setTypeAliasesPackage("com.example.springboot-demo.*.model"); // @Alias 사용할 패키지 명
+        sqlSessionFactoryBean.setTypeAliasesPackage("com.example.springbootdemo.model"); // @Alias 사용할 패키지 명
         return sqlSessionFactoryBean.getObject();
     }
 
