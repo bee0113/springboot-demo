@@ -18,22 +18,21 @@
 <!-- Page content goes here -->
 <div class="container">
     <p>This is User Profile\Index. Only authenticated people can see this</p>
-</div>
 
-<%--<table>--%>
-<%--    <tr>--%>
-<%--        <td>Username</td>--%>
-<%--        <td>--%>
-<%--            <sec:authentication property="txtUsername" var="userId"/>--%>
-<%--            <span id="userId">--%>
-<%--                ${userId};--%>
-<%--            </span>--%>
-<%--        </td>--%>
-<%--    </tr>--%>
-<%--&lt;%&ndash;    <tr>&ndash;%&gt;--%>
-<%--&lt;%&ndash;        <td>Authorities</td>&ndash;%&gt;--%>
-<%--&lt;%&ndash;        <td><span><sec:authentication property="principal"/></span></td>&ndash;%&gt;--%>
-<%--&lt;%&ndash;    </tr>&ndash;%&gt;--%>
-<%--</table>--%>
+
+    <table>
+        <tr>
+            <td>Username :</td>
+            <td>
+                <sec:authentication property="principal" var="user"/>
+                <span> ${user.username}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>Authorities : </td>
+            <td><span> ${user.authorities}</span></td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
