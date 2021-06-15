@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -60,16 +61,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // HttpSecurity 작성시 반드시 순서 고려 -> 위에서 부터 permitAll 인 경우 하위 접근제한자들이 작동하지 않음
         http
+                .csrf().disable()
                 .authorizeRequests()
-//                .anyRequest().authenticated()
-                .antMatchers("/index.html").permitAll()
-                .antMatchers("/profile/**").authenticated()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/manager/**").hasAnyRole("ADMIN", "MANAGER")
-                .antMatchers("/api/public/test1").hasAuthority("ACCESS_TEST1") // 해당 리소스에 명시된 authority 소유한 사용자만 접근 가능
-                .antMatchers("/api/public/test2").hasAuthority("ACCESS_TEST2")
+                //.anyRequest().authenticated()
+                    .antMatchers("/index").permitAll()
+                    .antMatchers("/profile/**").authenticated()
+                    .antMatchers("/admin/**").hasRole("ADMIN")
+                    .antMatchers("/manager/**").hasAnyRole("ADMIN", "MANAGER")
+                    .antMatchers("/api/public/test1").hasAuthority("ACCESS_TEST1")
+                    .antMatchers("/api/public/test2").hasAuthority("ACCESS_TEST2")
+                    .antMatchers("/api/public/users").hasRole("ADMIN")
                 .and()
-                .httpBasic();
+                .formLogin()
+                    .loginProcessingUrl("/signin")
+                    .loginPage("/login").permitAll()
+                    .usernameParameter("txtUsername")
+                    .passwordParameter("txtPassword")
+                .and()
+                .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
+                .and()
+                .rememberMe().tokenValiditySeconds(2592000).key("mySecretKey")
+                .rememberMeParameter("checkRememberMe");
+
+
+
 //                .cors().disable()      // cors 비활성화
 //                .csrf().disable()      // csrf 비활성화
 //                .formLogin().disable() //기본 로그인 페이지 없애기

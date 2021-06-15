@@ -30,7 +30,8 @@ public class Account {
 
     private String permissions = "";
 
-    public Account(String username, String password, String roles, String permissions) {
+    public Account(Long id, String username, String password, String roles, String permissions) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.roles = roles;

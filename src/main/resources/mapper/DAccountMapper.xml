@@ -4,11 +4,28 @@
     <!-- //계정 로그인 -->
 
     <select id="findByUsername" resultType="Account">
-
-        SELECT accountId, accountUserId, accountUserNm, accountEmail, accountPassword, devCheck, active, role, createDt,
-        updateDt
-        FROM bbs_new_account
-
+        SELECT *
+        FROM tbl_account
+        WHERE username = #{username};
     </select>
+
+    <select id="findAll" resultType="Account">
+        SELECT *
+        FROM tbl_account;
+    </select>
+
+    <insert id="saveAll" parameterType="java.util.List">
+            INSERT INTO tbl_account(id, username, password, active, roles, permissions)
+            VALUES
+        <foreach collection="list" index="index" item="item" separator=" , ">
+            (#{item.id}, #{item.username}, #{item.password}, #{item.active}, #{item.roles}, #{item.permissions})
+        </foreach>
+    </insert>
+
+    <delete id="deleteAll">
+        DELETE
+        FROM tbl_account;
+
+    </delete>
 
 </mapper>
